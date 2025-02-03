@@ -56,6 +56,13 @@ public class MediaSnippet implements Snippet {
         mPlayer.start();
     }
 
+    @Rpc(description = "Pause media playback.")
+    public void mediaPause() {
+        if (mPlayer != null && mPlayer.isPlaying()) {
+            mPlayer.pause();
+        }
+    }
+
     @Rpc(description = "Stops media playback.")
     public void mediaStop() throws IOException {
         mPlayer.stop();
