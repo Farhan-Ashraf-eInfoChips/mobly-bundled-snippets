@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
@@ -60,7 +61,7 @@
                            com.google.android.mobly.snippet.bundled.bluetooth.BluetoothAdapterSnippet,
                            com.google.android.mobly.snippet.bundled.bluetooth.BluetoothGattClientSnippet,
                            com.google.android.mobly.snippet.bundled.bluetooth.BluetoothGattServerSnippet,
-                           com.google.android.mobly.snippet.bundled.bluetooth.LeAudioSnippet,
+                           com.google.android.mobly.snippet.bundled.bluetooth.LeAudioClientSnippet,
                            com.google.android.mobly.snippet.bundled.bluetooth.profiles.BluetoothA2dpSnippet,
                            com.google.android.mobly.snippet.bundled.bluetooth.profiles.BluetoothHearingAidSnippet,
                            com.google.android.mobly.snippet.bundled.bluetooth.profiles.BluetoothHeadsetSnippet,
@@ -78,10 +79,14 @@
                            com.google.android.mobly.snippet.bundled.WifiManagerSnippet,
                            com.google.android.mobly.snippet.bundled.StorageSnippet" />
 
-    <service
-        android:name=".bundled.bluetooth.LeAudioSnippet"
-        android:exported="true"
-        android:permission="com.google.android.mobly.snippet.BIND" />
+        <service
+            android:name="com.google.android.mobly.snippet.bundled.bluetooth.LeAudioClientSnippet"
+            android:exported="true"
+            android:permission="com.google.android.mobly.snippet.permission.BIND">
+            <intent-filter>
+                <action android:name="com.google.android.mobly.snippet.ACTION_SNIPPET" />
+            </intent-filter>
+        </service>
 
     </application>
 
