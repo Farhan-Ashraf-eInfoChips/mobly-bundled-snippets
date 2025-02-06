@@ -11,7 +11,7 @@ import android.content.Context;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Base64;
+
 import com.google.android.mobly.snippet.Snippet;
 import com.google.android.mobly.snippet.bundled.MediaSnippet; // Import MediaSnippet for media control
 import com.google.android.mobly.snippet.bundled.utils.JsonSerializer;
@@ -46,6 +46,11 @@ public class LeAudioClientSnippet implements Snippet {
     @RpcMinSdk(VERSION_CODES.LOLLIPOP)
     @AsyncRpc(description = "Start LE Audio client Connect.")
     public void LeAudioConnectGatt(String callbackId, String deviceAddress) throws JSONException {
+        if (callbackId == null || deviceAddress == null) {
+            throw new IllegalArgumentException("Missing required parameters.");
+        }
+        Log.d("Mobly"+ "Callback ID: " + callbackId + ", Device Address: " + deviceAddress);
+
         BluetoothDevice remoteDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(deviceAddress);
 
         // First connection attempt (might not be secure)
@@ -80,6 +85,12 @@ public class LeAudioClientSnippet implements Snippet {
     @Rpc(description = "Pause media using MediaSnippet")
     public void LeAudioPauseMedia() {
         mediaSnippet.mediaPause();
+    }
+
+
+    @Rpc(description = "Checks if media is currently playing.")
+    public boolean LeAudioPlayingMedia() {
+        return mediaSnippet.mediaIsPlaying();
     }
 
     @RpcMinSdk(VERSION_CODES.LOLLIPOP)

@@ -56,6 +56,11 @@ public class MediaSnippet implements Snippet {
         mPlayer.start();
     }
 
+    @Rpc(description = "Checks if media is currently playing.")
+    public boolean mediaIsPlaying() {
+        return mPlayer != null && mPlayer.isPlaying();
+    }
+
     @Rpc(description = "Pause media playback.")
     public void mediaPause() {
         if (mPlayer != null && mPlayer.isPlaying()) {
